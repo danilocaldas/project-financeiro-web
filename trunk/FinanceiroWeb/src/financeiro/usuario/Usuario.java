@@ -1,7 +1,7 @@
 package financeiro.usuario;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -9,27 +9,33 @@ import javax.persistence.*;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -7390392097656238443L;
-	
+
 	@Id
 	@GeneratedValue
 	private Integer codigo;
-	
+
 	private String nome;
-	
+
 	private String email;
-	
-	@org.hibernate.annotations.NaturalId 
+
+	@org.hibernate.annotations.NaturalId
 	private String login;
-	
+
 	private String senha;
-	
+
 	private Date nascimento;
-	
+
 	private String celular;
-	
+
 	private String idioma;
-	
+
 	private boolean ativo;
+
+	@ElementCollection(targetClass = String.class)
+	@JoinTable(name = "usuario_permissao", uniqueConstraints = { @UniqueConstraint(columnNames = {
+			"usuario", "permissao" }) }, joinColumns = @JoinColumn(name = "usuario"))
+	@Column(name = "permissao", length = 50)
+	private Set<String> permissao = new HashSet<String>();
 
 	public Integer getCodigo() {
 		return codigo;
@@ -120,6 +126,8 @@ public class Usuario implements Serializable {
 		result = prime * result
 				+ ((nascimento == null) ? 0 : nascimento.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result
+				+ ((permissao == null) ? 0 : permissao.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -170,6 +178,11 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (permissao == null) {
+			if (other.permissao != null)
+				return false;
+		} else if (!permissao.equals(other.permissao))
+			return false;
 		if (senha == null) {
 			if (other.senha != null)
 				return false;
@@ -177,8 +190,13 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	public Set<String> getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Set<String> permissao) {
+		this.permissao = permissao;
+	}
 
 }
