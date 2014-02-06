@@ -17,11 +17,6 @@
 		<property name="format_sql">true</property>
 
         <mapping class="financeiro.usuario.Usuario"/>
-        <!-- <mapping class="financeiro.categoria.Categoria"/>
         <mapping class="financeiro.conta.Conta"/>
-        <mapping class="financeiro.lancamento.Lancamento"/>
-        <mapping class="financeiro.cheque.Cheque"/>
-        <mapping class="financeiro.bolsa.acao.Acao" />
-   		 -->
     </session-factory>
 </hibernate-configuration>

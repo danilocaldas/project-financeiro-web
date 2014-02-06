@@ -47,7 +47,7 @@ public class UsuarioDAOHibernate implements UsuarioDAO {
 	}
 
 	
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public List<Usuario> listar() {
 		

@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import financeiro.conta.Conta;
+import financeiro.conta.ContaRN;
 import financeiro.usuario.Usuario;
 import financeiro.usuario.UsuarioRN;
 
@@ -21,6 +23,8 @@ public class UsuarioBean {
 	private List<Usuario> lista;
 
 	private String destinoSalvar;
+	
+	private Conta conta = new Conta();
 
 	public String novo() {
 		this.destinoSalvar = "usuarioSucesso";
@@ -47,7 +51,14 @@ public class UsuarioBean {
 
 		UsuarioRN usuarioRN = new UsuarioRN();
 		usuarioRN.salvar(this.usuario);
-
+		
+		if (this.conta.getDescricao() != null) {
+			this.conta.setUsuario(this.usuario);
+			this.conta.setFavorita(true);
+			ContaRN contaRN = new ContaRN();
+			contaRN.salvar(this.conta);
+		}
+		
 		return this.destinoSalvar;
 	}
 
@@ -119,6 +130,14 @@ public class UsuarioBean {
 
 	public void setLista(List<Usuario> lista) {
 		this.lista = lista;
+	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 	
 	
