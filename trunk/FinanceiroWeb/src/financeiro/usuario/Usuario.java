@@ -3,7 +3,16 @@ package financeiro.usuario;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.UniqueConstraint;
+
+
 
 @Entity
 public class Usuario implements Serializable {
@@ -32,8 +41,8 @@ public class Usuario implements Serializable {
 	private boolean ativo;
 
 	@ElementCollection(targetClass = String.class)
-	@JoinTable(name = "usuario_permissao", uniqueConstraints = { @UniqueConstraint(columnNames = {
-			"usuario", "permissao" }) }, joinColumns = @JoinColumn(name = "usuario"))
+	@JoinTable(name = "usuario_permissao", uniqueConstraints = {@UniqueConstraint(columnNames = {
+			"usuario", "permissao"})}, joinColumns = @JoinColumn(name = "usuario"))
 	@Column(name = "permissao", length = 50)
 	private Set<String> permissao = new HashSet<String>();
 
