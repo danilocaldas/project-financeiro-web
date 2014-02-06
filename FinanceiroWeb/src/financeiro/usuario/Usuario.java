@@ -1,7 +1,9 @@
 package financeiro.usuario;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,7 +16,8 @@ import javax.persistence.UniqueConstraint;
 
 
 
-@Entity
+@Entity(name="usuario")
+
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -7390392097656238443L;
@@ -208,4 +211,6 @@ public class Usuario implements Serializable {
 		this.permissao = permissao;
 	}
 
+	
+	
 }
